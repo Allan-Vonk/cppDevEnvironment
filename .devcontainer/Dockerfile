@@ -16,5 +16,11 @@ RUN if [ "${REINSTALL_CMAKE_VERSION_FROM_SOURCE}" != "none" ]; then \
 # [Optional] Uncomment this section to install additional packages.
 # RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
 #     && apt-get -y install --no-install-recommends <your-package-list-here>
-
+#Create container folder
+WORKDIR /workspaces/cpp/
+#copy source files
+COPY . .
+#Make build folder and build project.
+RUN mkdir -p build && cd build && cmake .. && make
+#call the executable
 ENTRYPOINT ["./build/hello_world"]
